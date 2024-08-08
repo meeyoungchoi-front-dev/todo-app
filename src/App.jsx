@@ -11,7 +11,7 @@ function fetchTodos() {
 
 function App() {
   const [inputText, setInputText] = useState('');
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(fetchTodos());
   
   useEffect(() => {
     const storedTodos = fetchTodos();
@@ -25,8 +25,27 @@ function App() {
 
   const handleClick = () => {
     console.log('clicked');
-    localStorage.setItem(inputText, inputText);
+    localStorage.setItem(inputText, inputText);    
+    // todos.push(inputText); // 원본 배열을 직접 건드리는 것은 React에서 권장하지 않는다
+    setTodos((currentTodos) => {
+      return [...currentTodos, inputText];
+    })
+    setInputText('');
   }
+
+  const handleRemove = (todo, index) => {
+    // console.log(todo, index);
+    // todos.splice(index, 1);
+    // console.log(todos);
+    const result = todos.filter(todoItem => {
+      if (todoItem !== todo) {
+        return true;
+      }
+    })
+    setTodos(result);
+    localStorage.removeItem(result);
+  }
+
 
   return (
     <div>
@@ -37,7 +56,12 @@ function App() {
       </div>  
       <ul>
         {todos.map((todo, index) => (
-          <li key={index}>{todo}</li>
+          <li key={index}>
+            <span>
+              {todo}
+            </span>
+            <button onClick={() => handleRemove(todo, index)}>remove</button>
+          </li>
         ))}
       </ul>
     </div>
