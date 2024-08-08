@@ -1,17 +1,22 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 function fetchTodos() {
   const result = [];
-  const todos = fetchTodos();
   for (let i = 0; i < localStorage.length; i++) {
       const value = localStorage.key(i);
       result.push(value); 
   }
+  return result;
 }
-
 
 function App() {
   const [inputText, setInputText] = useState('');
+  const [todos, setTodos] = useState([]);
+  
+  useEffect(() => {
+    const storedTodos = fetchTodos();
+    setTodos(storedTodos);
+  }, []);
 
   const handleInput = (e) => {
     const value = e.target.value;
@@ -31,12 +36,11 @@ function App() {
         <button onClick={handleClick}>add</button>
       </div>  
       <ul>
-        <li>할일 추가</li>
-        <li>할일 조회</li>
-        <li>할일 삭제</li>
-      </ul> 
+        {todos.map((todo, index) => (
+          <li key={index}>{todo}</li>
+        ))}
+      </ul>
     </div>
-   
   )
 }
 
