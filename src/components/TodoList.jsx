@@ -1,31 +1,12 @@
-import { useEffect, useState } from "react";
-
-
-
-function TodoList({todos}) {
-    
-   
-    
-    const handleRemove = (todo, index) => {
-        const result = todos.filter(todoItem => {
-            if (todoItem !== todo) {
-            return true;
-            }
-        })
-        setTodos(result);
-        localStorage.removeItem(result);
-    }
+function TodoList({todos, onTodoRemove}) {
   return (
     <ul>
-       
-        {
-        // eslint-disable-next-line react/prop-types
-        todos.map((todo, index) => (
+        {todos.map((todo, index) => (
             <li key={index}>
             <span>
                 {todo}
             </span>
-            <button onClick={() => handleRemove(todo, index)}>remove</button>
+            <button onClick={() => onTodoRemove(todo, index)}>remove</button>
             </li>
         ))}
     </ul>
