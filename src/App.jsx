@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react"
+import TodoHeader from "./components/TodoHeader";
+import TodoInput from "./components/TodoInput";
 
 function fetchTodos() {
   const result = [];
@@ -10,7 +12,6 @@ function fetchTodos() {
 }
 
 function App() {
-  const [inputText, setInputText] = useState('');
   const [todos, setTodos] = useState(fetchTodos());
   
   useEffect(() => {
@@ -18,25 +19,8 @@ function App() {
     setTodos(storedTodos);
   }, []);
 
-  const handleInput = (e) => {
-    const value = e.target.value;
-    setInputText(value);
-  }
-
-  const handleClick = () => {
-    console.log('clicked');
-    localStorage.setItem(inputText, inputText);    
-    // todos.push(inputText); // 원본 배열을 직접 건드리는 것은 React에서 권장하지 않는다
-    setTodos((currentTodos) => {
-      return [...currentTodos, inputText];
-    })
-    setInputText('');
-  }
-
+ 
   const handleRemove = (todo, index) => {
-    // console.log(todo, index);
-    // todos.splice(index, 1);
-    // console.log(todos);
     const result = todos.filter(todoItem => {
       if (todoItem !== todo) {
         return true;
@@ -49,11 +33,8 @@ function App() {
 
   return (
     <div>
-      <h1>todo app</h1>
-      <div>
-        <input type="text" value={inputText} onChange={handleInput}/>  
-        <button onClick={handleClick}>add</button>
-      </div>  
+      <TodoHeader />
+      <TodoInput />
       <ul>
         {todos.map((todo, index) => (
           <li key={index}>
