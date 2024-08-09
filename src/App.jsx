@@ -18,6 +18,14 @@ function fetchTodos() {
       const storedTodos = fetchTodos();
       setTodos(storedTodos);
   }, []);
+
+  const addTodo = (todo) => {
+    console.log('clicked');
+    localStorage.setItem(todo, todo);    
+    setTodos((currentTodos) => {
+      return [...currentTodos, todo];
+    })
+  }
   
   const handleRemove = (todo, index) => {
     const result = todos.filter(todoItem => {
@@ -32,8 +40,8 @@ function fetchTodos() {
   return (
     <div>
       <TodoHeader />
-      <TodoInput />
-      <TodoList todos={todos} onTodoRemove={handleRemove} />
+      <TodoInput onTodoAdd={addTodo} />
+      <TodoList todos={todos} onTodoRemove={handleRemove}  />
     </div>
   )
 }
