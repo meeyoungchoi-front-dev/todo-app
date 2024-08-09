@@ -26,8 +26,8 @@ function fetchTodos() {
       return [...currentTodos, todo];
     })
   }
-  
-  const handleRemove = (todo, index) => {
+  e
+  const removTodo = (todo, index) => {
     const result = todos.filter(todoItem => {
         if (todoItem !== todo) {
         return true;
@@ -41,7 +41,7 @@ function fetchTodos() {
     <div>
       <TodoHeader />
       <TodoInput onTodoAdd={addTodo} />
-      <TodoList todos={todos} onTodoRemove={handleRemove}  />
+      <TodoList todos={todos} onTodoRemove={removTodo}  />
     </div>
   )
 }
