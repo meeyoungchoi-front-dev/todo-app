@@ -3,10 +3,21 @@ import TodoHeader from "./components/TodoHeader";
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
 
+function fetchTodos() {
+  const result = [];
+  for (let i = 0; i < localStorage.length; i++) {
+      const value = localStorage.key(i);
+      result.push(value); 
+  }
+  return result;
+}
 
 function App() {
-  //const [todos, setTodos] = useState(fetchTodos());
-  
+  const [todos, setTodos] = useState(fetchTodos());
+  useEffect(() => {
+    const storedTodos = fetchTodos();
+    setTodos(storedTodos);
+}, []);
  
 
  
@@ -17,7 +28,7 @@ function App() {
     <div>
       <TodoHeader />
       <TodoInput />
-      <TodoList />
+      <TodoList todos={todos} />
     </div>
   )
 }
