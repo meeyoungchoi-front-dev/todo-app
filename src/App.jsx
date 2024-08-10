@@ -11,7 +11,6 @@ function fetchTodos() {
   }
   return result;
 }
-
   function App() {
     const [todos, setTodos] = useState(fetchTodos());
     useEffect(() => {
@@ -26,8 +25,8 @@ function fetchTodos() {
       return [...currentTodos, todo];
     })
   }
-  e
-  const removTodo = (todo, index) => {
+  
+  const removTodo = (todo) => {
     const result = todos.filter(todoItem => {
         if (todoItem !== todo) {
         return true;

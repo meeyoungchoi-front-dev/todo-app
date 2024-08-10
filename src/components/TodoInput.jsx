@@ -2,8 +2,9 @@ import { useState } from "react";
 
 function TodoInput({onTodoAdd}) {
     const [inputText, setInputText] = useState('');
-    const handleInput = (e) => {
-      const value = e.target.value;
+    const handleInput = (event) => {
+      // 이벤트 객체가 제대로 들어오는지 확인
+      const value = event.target.value;
       setInputText(value);
     }
 
